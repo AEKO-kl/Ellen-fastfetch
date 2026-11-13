@@ -1,5 +1,15 @@
 {
 
+"logo": {
+  "type": "file",
+  "source": "/home/aeko/.config/fastfetch/Terminal_Ellen/ascii-etoile.txt",
+  "padding": {
+    "right": 4
+  }
+},
+
+
+
   "display": {
     "separator": " ",
     "constants": [
@@ -105,7 +115,7 @@
       "type": "memory",
       "key": "MEMORY:",
       "keyColor": "#A6E3A1",
-      "format": "{used} / {total<15} {#}  {#90}│{#}       {#90}│{#}" // here as well
+      "format": "{used} / {total<16} {#}  {#90}│{#}       {#90}│{#}" // here as well
     },
     {
       "type": "disk",
