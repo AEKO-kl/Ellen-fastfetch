@@ -1,11 +1,13 @@
 <div align="center">
 
+[🇬🇧 English](README.en.md) · 🇫🇷 Français
+
 # Ellen-fastfetch
 
 **Un fastfetch aux couleurs d'Ellen Joe (Zenless Zone Zero) pour kitty + fish.**
 Logo ASCII, cadres de texte, et des images d'Ellen posées par-dessus ton terminal.
 
-![preview](Pictures/preview.png)
+![preview](screenshots/preview.png)
 
 </div>
 
@@ -89,7 +91,8 @@ Ellen-fastfetch/
 │   └── ...                  # autres images disponibles
 ├── screenshots/
 │   └── preview.png
-└── README.md
+├── README.md                # français
+└── README.en.md             # anglais
 ```
 
 ---
