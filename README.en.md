@@ -124,6 +124,10 @@ The frames use box-drawing characters (┌ ─ ┐ │ └ ┘) and the ⛩ symb
 
 ---
 
+
+![preview](Pictures/preview-transparency.png)
+
+
 ## Transparency (optional)
 
 The `ellen-transparency.sh` script makes kitty's background transparent. Run it from the cloned folder:

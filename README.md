@@ -124,6 +124,9 @@ Les cadres utilisent des caractères de dessin (┌ ─ ┐ │ └ ┘) et le s
 
 ---
 
+![preview](Pictures/preview-transparency.png)
+
+
 ## Transparence (optionnel)
 
 Le script `ellen-transparency.sh` rend le fond de kitty transparent. Lance-le depuis le dossier cloné :
