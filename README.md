@@ -7,7 +7,7 @@
 **Un fastfetch aux couleurs d'Ellen Joe (Zenless Zone Zero) pour kitty + fish.**
 Logo ASCII, cadres de texte, et des images d'Ellen posées par-dessus ton terminal.
 
-![preview](screenshots/preview.png)
+![preview](Pictures/preview.png)
 
 </div>
 

@@ -7,7 +7,7 @@
 **A fastfetch setup themed after Ellen Joe (Zenless Zone Zero), for kitty + fish.**
 ASCII logo, text frames, and Ellen images overlaid on top of your terminal.
 
-![preview](screenshots/preview.png)
+![preview](Pictures/preview.png)
 
 </div>
 
