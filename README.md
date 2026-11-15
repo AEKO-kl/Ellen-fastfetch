@@ -5,7 +5,7 @@
 Une config [fastfetch](https://github.com/fastfetch-cli/fastfetch) aux couleurs d'Ellen (Zenless Zone Zero), pour **kitty** + **fish**.
 Logo ASCII en étoile, cadres de texte, et des images d'Ellen posées par-dessus le terminal.
 
-![preview](Ellen-fastfetch/Pictures/)
+![preview](Pictures/preview.png)
 
 </div>
 
