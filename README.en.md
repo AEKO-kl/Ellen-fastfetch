@@ -25,26 +25,39 @@ ASCII logo, text frames, and Ellen images overlaid on top of your terminal.
 
 ## Quick install
 
-Requirements: [kitty](https://sw.kovidgoyal.net/kitty/), [fish](https://fishshell.com/) and [fastfetch](https://github.com/fastfetch-cli/fastfetch). On Arch Linux:
-
-```bash
-sudo pacman -S kitty fish fastfetch
-```
-
-Then copy and paste:
+Requirements: [kitty](https://sw.kovidgoyal.net/kitty/), [fish](https://fishshell.com/) and [fastfetch](https://github.com/fastfetch-cli/fastfetch). On Arch Linux, the install script takes care of them:
 
 ```bash
 git clone https://github.com/AEKO-kl/Ellen-fastfetch.git
 cd Ellen-fastfetch
-
-mkdir -p ~/.config/fastfetch ~/.config/fish/conf.d
-cp -r Ellenconfig.jsonc Terminal_Ellen ~/.config/fastfetch/
-cp ellen-fastfetch.fish ~/.config/fish/conf.d/
+bash install.sh --deps
 ```
 
-Open a **new kitty terminal** running fish: fastfetch starts and Ellen shows up.
+`--deps` installs kitty, fish and fastfetch with pacman (it asks for your sudo password). If you already have them, or you're not on Arch, just run `bash install.sh`.
 
-> These commands only overwrite `Ellenconfig.jsonc`, the `Terminal_Ellen/` folder and `ellen-fastfetch.fish`. The rest of your config is left untouched.
+Then open a **new kitty terminal** running fish: fastfetch starts and Ellen shows up.
+
+> If your `config.fish` already launches fastfetch, remove that line: otherwise it will be displayed twice.
+
+### Script options
+
+| Command | Effect |
+|---|---|
+| `bash install.sh` | installs the config, the images and the fish script |
+| `bash install.sh --deps` | also installs kitty, fish and fastfetch (Arch Linux, via pacman) |
+| `bash install.sh --transparency 0.6` | installs and turns on kitty transparency (from `0.2` to `1.0`, `0.60` if you leave the value out) |
+| `bash install.sh --uninstall` | removes everything, transparency included |
+| `bash install.sh --help` | shows the help |
+
+Options can be combined: `bash install.sh --deps --transparency 0.7`.
+
+### What the script does
+
+- It copies `Ellenconfig.jsonc` and `Terminal_Ellen/` into `~/.config/fastfetch/`.
+- It copies `ellen-fastfetch.fish` into `~/.config/fish/conf.d/`.
+- If one of those files already exists with different content, it keeps a copy (`.bak-ellen-<date>`) before replacing it.
+- It touches neither your `config.fish` nor your `kitty.conf`, unless you ask for transparency.
+- You can run it as many times as you like: use it to update after a `git pull`.
 
 ### Your shell isn't fish?
 
@@ -63,14 +76,45 @@ fastfetch -c ~/.config/fastfetch/Ellenconfig.jsonc
 
 The Ellen images, however, only display in **kitty** (they rely on `kitten icat`).
 
+### Manual install
+
+<details>
+<summary>Without the install script</summary>
+
+```bash
+git clone https://github.com/AEKO-kl/Ellen-fastfetch.git
+cd Ellen-fastfetch
+
+mkdir -p ~/.config/fastfetch ~/.config/fish/conf.d
+cp -r Ellenconfig.jsonc Terminal_Ellen ~/.config/fastfetch/
+cp ellen-fastfetch.fish ~/.config/fish/conf.d/
+```
+
+These commands only overwrite `Ellenconfig.jsonc`, the `Terminal_Ellen/` folder and `ellen-fastfetch.fish`.
+
+</details>
+
 ### Uninstall
+
+From the cloned folder:
+
+```bash
+bash install.sh --uninstall
+```
+
+This removes `ellen-fastfetch.fish`, `Ellenconfig.jsonc`, the `Terminal_Ellen/` folder (**including any images you added to it**) and transparency if it is on. The `.bak-ellen-*` backups are not deleted.
+
+<details>
+<summary>By hand</summary>
 
 ```bash
 rm ~/.config/fish/conf.d/ellen-fastfetch.fish
 rm ~/.config/fastfetch/Ellenconfig.jsonc
 rm -r ~/.config/fastfetch/Terminal_Ellen
-bash ellen-transparency.sh --off        # if you turned transparency on (from the cloned folder)
+bash ellen-transparency.sh --off   # only if you turned transparency on
 ```
+
+</details>
 
 ---
 
@@ -89,6 +133,8 @@ bash ellen-transparency.sh 0.6      # turn transparency on
 bash ellen-transparency.sh          # same, with the default value (0.60)
 bash ellen-transparency.sh --off    # turn transparency off
 ```
+
+Shortcut: `bash install.sh --transparency 0.6` does the install and turns transparency on in a single command.
 
 The value ranges from `0.2` (very transparent) to `1.0` (opaque). Below `0.2` the text becomes unreadable, so the script refuses.
 
@@ -113,6 +159,7 @@ To use another value, just run the command again: `kitty.conf` doesn't get dupli
 Ellen-fastfetch/
 ├── Ellenconfig.jsonc        # fastfetch config (frames, modules, colors)
 ├── ellen-fastfetch.fish     # launches fastfetch + places the images
+├── install.sh               # installer (dependencies, files, transparency)
 ├── ellen-transparency.sh    # (optional) adjusts kitty transparency
 ├── Terminal_Ellen/
 │   ├── ascii-etoile.txt     # colored ASCII logo
