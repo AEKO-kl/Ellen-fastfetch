@@ -19,6 +19,7 @@ Logo ASCII, cadres de texte, et des images d'Ellen posées par-dessus ton termin
 - Trois **cadres** : *Welcome back!*, *Soft-and Hardware* (OS, CPU, BIOS, GPU, RAM, disques) et *Intelligence Agency* (connexion, uptime, IP locale, date, souris).
 - Deux **images d'Ellen** affichées par-dessus le texte, qui se replacent toutes seules selon la taille de la fenêtre et se redessinent quand tu la redimensionnes.
 - Tout s'affiche **à l'ouverture de chaque terminal**.
+- En option, un script pour régler la **transparence de kitty**.
 
 ---
 
@@ -68,6 +69,7 @@ Les images d'Ellen, elles, ne s'affichent que dans **kitty** (elles utilisent `k
 rm ~/.config/fish/conf.d/ellen-fastfetch.fish
 rm ~/.config/fastfetch/Ellenconfig.jsonc
 rm -r ~/.config/fastfetch/Terminal_Ellen
+bash ellen-transparency.sh --off        # si tu as activé la transparence (depuis le dossier cloné)
 ```
 
 ---
@@ -78,18 +80,46 @@ Les cadres utilisent des caractères de dessin (┌ ─ ┐ │ └ ┘) et le s
 
 ---
 
+## Transparence (optionnel)
+
+Le script `ellen-transparency.sh` rend le fond de kitty transparent. Lance-le depuis le dossier cloné :
+
+```bash
+bash ellen-transparency.sh 0.6      # active la transparence
+bash ellen-transparency.sh          # idem, avec la valeur par défaut (0.60)
+bash ellen-transparency.sh --off    # retire la transparence
+```
+
+La valeur va de `0.2` (très transparent) à `1.0` (opaque). En dessous de `0.2` le texte n'est plus lisible, le script refuse.
+
+Ce que fait le script :
+
+- il crée le fichier `~/.config/kitty/ellen-transparency.conf` (`background_opacity` et `dynamic_background_opacity yes`) ;
+- il ajoute la ligne `include ellen-transparency.conf` **à la fin** de ton `kitty.conf`, pour qu'elle ait priorité ;
+- il garde une copie de ton fichier d'origine dans `kitty.conf.bak-ellen` (créée une seule fois) ;
+- il demande à kitty de recharger sa configuration.
+
+**La première fois**, ferme puis rouvre kitty si la transparence n'apparaît pas tout de suite.
+
+Pour relancer avec une autre valeur, relance simplement la commande : il n'y a pas de doublon dans `kitty.conf`. `--off` supprime le fichier et la ligne `include`, le reste de ta config n'est pas touché.
+
+> Sur Hyprland, le flou derrière le terminal est géré par Hyprland (réglage `blur`), pas par ce script.
+
+---
+
 ## Contenu du dépôt
 
 ```
 Ellen-fastfetch/
 ├── Ellenconfig.jsonc        # config fastfetch (cadres, modules, couleurs)
 ├── ellen-fastfetch.fish     # lancement de fastfetch + placement des images
+├── ellen-transparency.sh    # (optionnel) règle la transparence de kitty
 ├── Terminal_Ellen/
 │   ├── ascii-etoile.txt     # logo ASCII en couleur
 │   ├── Ellen2-trim.png      # image d'Ellen (en haut à droite)
 │   ├── sitpose-trim.png     # Ellen assise sur le cadre
 │   └── ...                  # autres images disponibles
-├── screenshots/
+├── Pictures/
 │   └── preview.png
 ├── README.md                # français
 └── README.en.md             # anglais
@@ -201,6 +231,9 @@ Relève la taille de ta fenêtre avec `stty size`, repère le mode correspondant
 
 **Les cadres sont décalés.**
 Change de police, ou raccourcis la valeur concernée (nom du CPU, du GPU...) avec `<` / `>` dans le `format` du module.
+
+**La transparence ne change rien.**
+Ferme puis rouvre kitty (nécessaire la première fois). Si rien ne bouge, une autre ligne `background_opacity` située après l'`include` prend peut-être le dessus : `grep -rn background_opacity ~/.config/kitty`. Vérifie aussi que ton compositeur gère la transparence (Hyprland le fait par défaut).
 
 **Message `Config introuvable`.**
 Le nom dans `set -g fetch_mode Ellenconfig` doit correspondre à un fichier `~/.config/fastfetch/<nom>.jsonc`.
